@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FISC-V Support</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/fisc-logo-small.svg">
+    <style>
+        .support-form {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #003366;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Verdana, Arial, sans-serif;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            background: #0860A8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .submit-button:hover {
+            background: #003366;
+        }
+        
+        .faq-section {
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+        }
+        
+        .faq-item h3 {
+            color: #0860A8;
+            margin-bottom: 10px;
+        }
+        
+        .contact-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin: 10px 0;
+            display: none;
+        }
+        
+        .success-message {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            margin: 10px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <img src="assets/images/fisc-logo.svg" alt="FISC-V Logo" height="60">
+        </div>
+    </div>
+
+    <div id="navigation">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="https://github.com/stumbdev/FISC">GitHub</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-box">
+            <h1>Support</h1>
+            
+            <div class="support-form">
+                <h2>Contact Support</h2>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
+                
+                <form id="supportForm" action="mailto:stumbledeveloper@hotmail.com" method="POST" enctype="text/plain">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject...</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="config">Configuration Help</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="version">FISC-V Version:</label>
+                        <input type="text" id="version" name="version" placeholder="e.g., 1.0.0">
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <h3>Q: How do I report a bug?</h3>
+                    <p>A: Use the form above and select "Bug Report" as the subject. Please include:</p>
+                    <ul>
+                        <li>FISC-V version</li>
+                        <li>Your operating system</li>
+                        <li>Steps to reproduce the issue</li>
+                        <li>Expected vs actual behavior</li>
+                    </ul>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Q: Where can I find configuration examples?</h3>
+                    <p>A: Check our <a href="documentation.html#use-cases">documentation page</a> for various configuration examples.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Q: How do I request a new feature?</h3>
+                    <p>A: Use the form above or create an issue on our <a href="https://github.com/stumbdev/FISC/issues">GitHub page</a>.</p>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h2>Additional Contact Information</h2>
+                <p>Email: stumbledeveloper@hotmail.com</p>
+                <p>GitHub: <a href="https://github.com/stumbdev/FISC">github.com/stumbdev/FISC</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 FISC-V Project. All rights reserved.</p>
+            <p>
+                <a href="https://github.com/stumbdev/FISC">GitHub</a> |
+                <a href="downloads/docs/fisc_manual.pdf">PDF Manual</a> |
+                <a href="support.html">Support</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Basic validation
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !message) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Please fill in all required fields.';
+                successMessage.style.display = 'none';
+                return;
+            }
+            
+            // Prepare email content
+            const subject = document.getElementById('subject').value;
+            const version = document.getElementById('version').value;
+            const mailtoLink = `mailto:stumbledeveloper@hotmail.com?subject=FISC-V Support: ${subject}&body=Name: ${name}%0D%0AEmail: ${email}%0D%0AVersion: ${version}%0D%0A%0D%0A${message}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            successMessage.style.display = 'block';
+            successMessage.textContent = 'Opening your email client...';
+            errorMessage.style.display = 'none';
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html> 

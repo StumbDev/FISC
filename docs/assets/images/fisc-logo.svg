@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="100" viewBox="0 0 300 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- Main rounded rectangle background -->
+    <rect x="10" y="10" width="280" height="80" rx="15" ry="15" 
+          fill="#0071c5" stroke="none"/>
+    
+    <!-- FISC text -->
+    <text x="40" y="65" 
+          font-family="Arial Black, Arial" 
+          font-size="48" 
+          font-weight="bold" 
+          fill="white">
+        FISC
+    </text>
+    
+    <!-- Stylized -V -->
+    <text x="170" y="65" 
+          font-family="Arial Black, Arial" 
+          font-size="48" 
+          font-weight="bold" 
+          fill="white">
+        -V
+    </text>
+    
+    <!-- Bottom text -->
+    <text x="220" y="80" 
+          font-family="Arial" 
+          font-size="14" 
+          fill="white">
+        inside
+    </text>
+    
+    <!-- Swoosh element -->
+    <path d="M 240,30 Q 260,50 240,70" 
+          stroke="white" 
+          stroke-width="3" 
+          fill="none"/>
+          
+    <!-- Drop shadow effect -->
+    <rect x="12" y="12" width="276" height="76" rx="13" ry="13" 
+          fill="black" opacity="0.1"/>
+</svg> 

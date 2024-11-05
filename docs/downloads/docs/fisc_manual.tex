@@ -1,0 +1,458 @@
+\documentclass[a4paper,11pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{geometry}
+
+% Define colors for code listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Configure code listings
+\lstdefinestyle{fxmlstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\title{FISC-V User Manual}
+\author{FISC-V Development Team}
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Introduction}
+\section{Overview}
+FISC-V is a highly configurable virtual processing unit that supports multiple architectures, including RISC-V variants and the x86 family. This manual provides comprehensive documentation for setting up and using FISC-V.
+
+\section{Features}
+\begin{itemize}
+    \item Multiple architecture support (RISC-V, x86, 8-bit, 4-bit)
+    \item Configurable memory and cache systems
+    \item Real and protected mode support for x86
+    \item Integrated debugging capabilities
+    \item Multiple user interfaces (GUI, TUI, CLI)
+\end{itemize}
+
+\chapter{Installation}
+\section{System Requirements}
+\begin{itemize}
+    \item 64-bit operating system (Windows, Linux, or macOS)
+    \item 2GB RAM minimum
+    \item 100MB disk space
+\end{itemize}
+
+\section{Building from Source}
+\begin{lstlisting}[language=bash]
+mkdir build
+cd build
+cmake ..
+make
+\end{lstlisting}
+
+\chapter{Configuration}
+\section{FXml Format}
+FXml is the configuration format used by FISC-V. Here's an example configuration:
+
+\begin{lstlisting}[style=fxmlstyle]
+ARCHITECTURE = 80386DX
+ADDRESS_BUS_WIDTH = 32
+DATA_BUS_WIDTH = 32
+MEMORY_SIZE = 16777216
+START_ADDRESS = 0x0000
+CPU_FREQUENCY = 33000000
+\end{lstlisting}
+
+\section{Configuration Parameters}
+\subsection{Basic Parameters}
+\begin{itemize}
+    \item \texttt{ARCHITECTURE}: CPU architecture type
+    \item \texttt{MEMORY\_SIZE}: Total memory size in bytes
+    \item \texttt{START\_ADDRESS}: Program start address
+\end{itemize}
+
+\subsection{Architecture-Specific Parameters}
+\begin{itemize}
+    \item \texttt{X86\_REAL\_MODE}: Enable x86 real mode
+    \item \texttt{X86\_PROTECTED\_MODE}: Enable x86 protected mode
+    \item \texttt{SEGMENT\_REGISTERS}: Enable segmentation
+\end{itemize}
+
+\chapter{Using FISC-V}
+\section{Command Line Interface}
+The CLI provides basic configuration management:
+\begin{lstlisting}[language=bash]
+$ ./fisc_cli
+load <filename>    - Load configuration
+edit <param> <val> - Edit parameter
+save <filename>    - Save configuration
+run               - Start VPU
+\end{lstlisting}
+
+\section{Text User Interface}
+The TUI provides an ncurses-based interface with menu navigation:
+\begin{itemize}
+    \item Use arrow keys to navigate
+    \item Enter to select options
+    \item ESC to go back
+\end{itemize}
+
+\section{Graphical User Interface}
+The GUI provides a modern interface with:
+\begin{itemize}
+    \item Configuration file management
+    \item Real-time parameter editing
+    \item Visual status indicators
+\end{itemize}
+
+\chapter{Architecture Support}
+\section{x86 Family}
+\subsection{386DX Configuration}
+\begin{lstlisting}[style=fxmlstyle]
+ARCHITECTURE = 80386DX
+ADDRESS_BUS_WIDTH = 32
+DATA_BUS_WIDTH = 32
+MEMORY_SIZE = 16777216
+FPU_TYPE = 80387
+MMU_TYPE = paging_and_segmentation
+\end{lstlisting}
+
+\subsection{486DX2 Configuration}
+\begin{lstlisting}[style=fxmlstyle]
+ARCHITECTURE = 80486DX2
+ADDRESS_BUS_WIDTH = 32
+DATA_BUS_WIDTH = 32
+MEMORY_SIZE = 67108864
+FPU_TYPE = internal
+CLOCK_MULTIPLIER = 2
+\end{lstlisting}
+
+\section{RISC-V Support}
+\subsection{RV32I Configuration}
+\begin{lstlisting}[style=fxmlstyle]
+ARCHITECTURE = RISC-V-32
+ADDRESS_BUS_WIDTH = 32
+DATA_BUS_WIDTH = 32
+INSTRUCTION_SET_EXTENSIONS = base
+\end{lstlisting}
+
+\chapter{Debugging}
+\section{Debug Levels}
+\begin{itemize}
+    \item \texttt{none}: No debug output
+    \item \texttt{minimal}: Basic status messages
+    \item \texttt{normal}: Standard debugging info
+    \item \texttt{verbose}: Detailed execution trace
+    \item \texttt{debug}: Full system state
+\end{itemize}
+
+\section{Instruction Tracing}
+Enable instruction tracing with:
+\begin{lstlisting}[style=fxmlstyle]
+DEBUG_LEVEL = verbose
+TRACE_INSTRUCTIONS = true
+\end{lstlisting}
+
+\chapter{Advanced Topics}
+\section{Memory Management}
+\subsection{Paging Configuration}
+\begin{itemize}
+    \item Page size configuration
+    \item Page table structure
+    \item TLB settings
+\end{itemize}
+
+\section{Cache Configuration}
+\begin{itemize}
+    \item L1 cache settings
+    \item Cache coherency
+    \item Write policies
+\end{itemize}
+
+\chapter{Architecture-Specific Features}
+\section{x86 Family}
+\subsection{Real Mode Operation}
+Real mode provides compatibility with 8086/8088 software and operates with:
+\begin{itemize}
+    \item 20-bit segmented addressing
+    \item 1MB address space
+    \item No memory protection
+    \item Direct hardware access
+\end{itemize}
+
+\subsection{Protected Mode}
+Protected mode enables advanced features:
+\begin{itemize}
+    \item Memory protection
+    \item Virtual memory support
+    \item Task switching
+    \item Privilege levels (rings 0-3)
+\end{itemize}
+
+\subsection{Virtual 8086 Mode}
+Available on 386 and later:
+\begin{itemize}
+    \item Multiple virtual 8086 machines
+    \item Hardware virtualization
+    \item DOS compatibility
+\end{itemize}
+
+\section{RISC-V Implementation}
+\subsection{Base Integer Instructions (RV32I)}
+Core instruction set includes:
+\begin{itemize}
+    \item Arithmetic operations
+    \item Logical operations
+    \item Load/Store operations
+    \item Control transfer
+\end{itemize}
+
+\subsection{Standard Extensions}
+Supported extensions:
+\begin{itemize}
+    \item M - Integer Multiplication and Division
+    \item A - Atomic Instructions
+    \item F - Single-Precision Floating-Point
+    \item D - Double-Precision Floating-Point
+\end{itemize}
+
+\chapter{Performance Optimization}
+\section{Clock Configuration}
+\subsection{Clock Multiplier Settings}
+\begin{itemize}
+    \item Base clock selection
+    \item Multiplier ranges
+    \item Timing constraints
+\end{itemize}
+
+\subsection{Wait States}
+Memory timing configuration:
+\begin{itemize}
+    \item DRAM refresh timing
+    \item Memory access latency
+    \item I/O wait states
+\end{itemize}
+
+\section{Cache Optimization}
+\subsection{Cache Policies}
+Available cache policies:
+\begin{itemize}
+    \item Write-through
+    \item Write-back
+    \item Write-allocate
+    \item No-write-allocate
+\end{itemize}
+
+\subsection{Cache Organization}
+Cache structure options:
+\begin{itemize}
+    \item Direct mapped
+    \item Set associative
+    \item Fully associative
+\end{itemize}
+
+\chapter{Development Tools}
+\section{Debugging Features}
+\subsection{Instruction Tracing}
+Trace configuration options:
+\begin{itemize}
+    \item Instruction execution
+    \item Memory access
+    \item I/O operations
+    \item Interrupt handling
+\end{itemize}
+
+\subsection{Breakpoints}
+Types of breakpoints:
+\begin{itemize}
+    \item Execution breakpoints
+    \item Memory access breakpoints
+    \item I/O breakpoints
+    \item Conditional breakpoints
+\end{itemize}
+
+\section{Performance Monitoring}
+\subsection{Hardware Counters}
+Available counters:
+\begin{itemize}
+    \item Instruction counts
+    \item Cache hits/misses
+    \item Branch prediction
+    \item Memory access patterns
+\end{itemize}
+
+\subsection{Profiling Tools}
+Built-in profiling features:
+\begin{itemize}
+    \item Execution time analysis
+    \item Memory usage patterns
+    \item I/O bottleneck detection
+    \item Cache efficiency analysis
+\end{itemize}
+
+\chapter{System Integration}
+\section{I/O Subsystem}
+\subsection{Port Configuration}
+I/O port settings:
+\begin{itemize}
+    \item Port address ranges
+    \item I/O permissions
+    \item Port timing
+    \item Interrupt configuration
+\end{itemize}
+
+\subsection{DMA Support}
+DMA features:
+\begin{itemize}
+    \item Channel configuration
+    \item Transfer modes
+    \item Priority levels
+    \item Buffer management
+\end{itemize}
+
+\section{Interrupt Handling}
+\subsection{Interrupt Controllers}
+Supported controllers:
+\begin{itemize}
+    \item 8259 PIC emulation
+    \item APIC support
+    \item Custom interrupt routing
+\end{itemize}
+
+\subsection{Interrupt Modes}
+Available modes:
+\begin{itemize}
+    \item Real mode interrupts
+    \item Protected mode interrupts
+    \item Virtual 8086 mode interrupts
+    \item Message-based interrupts
+\end{itemize}
+
+\chapter{Configuration Examples}
+\section{Common Scenarios}
+\subsection{DOS Gaming System}
+\begin{lstlisting}[style=fxmlstyle]
+ARCHITECTURE = 80486DX2
+ADDRESS_BUS_WIDTH = 32
+DATA_BUS_WIDTH = 32
+MEMORY_SIZE = 16777216
+X86_REAL_MODE = true
+FPU_TYPE = internal
+CLOCK_MULTIPLIER = 2
+\end{lstlisting}
+
+\subsection{Unix Workstation}
+\begin{lstlisting}[style=fxmlstyle]
+ARCHITECTURE = 80486DX
+ADDRESS_BUS_WIDTH = 32
+DATA_BUS_WIDTH = 32
+MEMORY_SIZE = 67108864
+X86_PROTECTED_MODE = true
+MMU_TYPE = paging_and_segmentation
+CLOCK_MULTIPLIER = 1
+\end{lstlisting}
+
+\subsection{Embedded Controller}
+\begin{lstlisting}[style=fxmlstyle]
+ARCHITECTURE = RISC-V-32
+ADDRESS_BUS_WIDTH = 32
+DATA_BUS_WIDTH = 32
+MEMORY_SIZE = 1048576
+INSTRUCTION_SET_EXTENSIONS = base,m
+DEBUG_LEVEL = minimal
+\end{lstlisting}
+
+\chapter{Troubleshooting}
+\section{Common Issues}
+\subsection{Boot Problems}
+Common boot issues and solutions:
+\begin{itemize}
+    \item BIOS initialization failures
+    \item Memory configuration errors
+    \item CPU mode switching problems
+\end{itemize}
+
+\subsection{Performance Issues}
+Performance troubleshooting:
+\begin{itemize}
+    \item Cache configuration problems
+    \item Memory timing issues
+    \item Clock synchronization errors
+\end{itemize}
+
+\appendix
+\chapter{Error Messages}
+\section{System Messages}
+\begin{description}
+    \item[E001] Invalid configuration parameter
+    \item[E002] Memory allocation failed
+    \item[E003] Invalid instruction execution
+    \item[E004] Cache coherency error
+\end{description}
+
+\section{Configuration Errors}
+\begin{description}
+    \item[C001] Invalid architecture specification
+    \item[C002] Incompatible mode settings
+    \item[C003] Invalid memory size
+    \item[C004] Unsupported feature combination
+\end{description}
+
+\chapter{Configuration Reference}
+\section{Complete Parameter List}
+Comprehensive listing of all configuration parameters with:
+\begin{itemize}
+    \item Parameter name and type
+    \item Valid values and constraints
+    \item Default settings
+    \item Dependencies and conflicts
+\end{itemize}
+
+\backmatter
+\chapter{Glossary}
+\begin{description}
+    \item[VPU] Virtual Processing Unit
+    \item[FXml] FISC Configuration Markup Language
+    \item[MMU] Memory Management Unit
+    \item[FPU] Floating Point Unit
+    \item[TLB] Translation Lookaside Buffer
+    \item[SIMD] Single Instruction, Multiple Data
+    \item[DMA] Direct Memory Access
+    \item[APIC] Advanced Programmable Interrupt Controller
+\end{description}
+
+\chapter{Bibliography}
+\begin{thebibliography}{9}
+\bibitem{intel386} Intel Corporation. \emph{i386 Programmer's Reference Manual}. 1986.
+\bibitem{intel486} Intel Corporation. \emph{i486 Programmer's Reference Manual}. 1990.
+\bibitem{riscv} RISC-V Foundation. \emph{The RISC-V Instruction Set Manual}. 2019.
+\end{thebibliography}
+
+\end{document} 
